@@ -88,10 +88,17 @@ func main() {
 						[]Declaration{},
 					})
 				case *ast.ValueSpec:
+					tok := decl.Tok
+					var vtype string
+					if tok == token.CONST {
+						vtype = "constant"
+					} else {
+						vtype = "variable"
+					}
 					for _, id := range spec.Names {
 						declarations = append(declarations, Declaration{
 							id.Name,
-							"variable",
+							vtype,
 							"",
 							id.Pos(),
 							id.End(),
